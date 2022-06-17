@@ -28,5 +28,9 @@ export function DisplayContactPage(req: express.Request, res: express.Response, 
 {
     res.render('index', { title: 'Contact Us', page: 'contact', displayName: UserDisplayName(req)  });
 }
+export function DisplayContactList(req: express.Request, res: express.Response, next: express.NextFunction)
+{
+    res.render('index', { title: 'Contact Us', page: 'contact', displayName: UserDisplayName(req)  });
+}
 
 

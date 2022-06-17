@@ -4,16 +4,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DisplayContactList = void 0;
-const movie_1 = __importDefault(require("../Models/movie"));
+const contact_details_1 = __importDefault(require("../Models/contact-details"));
 const Util_1 = require("../Util");
 function DisplayContactList(req, res, next) {
-    movie_1.default.find(function (err, moviesCollection) {
+    contact_details_1.default.find(function (err, contactsCollection) {
         if (err) {
             console.error(err);
             res.end(err);
         }
-        res.render('index', { title: 'Movie List', page: 'movie-list', movies: moviesCollection, displayName: (0, Util_1.UserDisplayName)(req) });
+        res.render('index', { title: 'Contact List', page: 'contact-list', contacts: contactsCollection, displayName: (0, Util_1.UserDisplayName)(req) });
     });
 }
 exports.DisplayContactList = DisplayContactList;
-//# sourceMappingURL=movie-list.js.map
+//# sourceMappingURL=conatct-list.js.map

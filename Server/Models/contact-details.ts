@@ -13,7 +13,7 @@ const ContactSchema = new Schema
     Email: String,
 },
 {
-    collection: "ContactList"
+    collection: "contactList"
 });
 
 // Create a Model using the Schema

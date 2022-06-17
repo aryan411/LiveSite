@@ -3,8 +3,8 @@ const router = express.Router();
 
 import { AuthGuard } from '../Util';
 
-import { DisplayMovieList } from '../Controllers/movie-list';
+import { DisplayContactList } from '../Controllers/conatct-list';
 
-router.get('/movie-list', AuthGuard, DisplayMovieList);
+router.get('/contact-list', DisplayContactList);
 
 export default router;

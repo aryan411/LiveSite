@@ -16,22 +16,23 @@ import flash from 'connect-flash';
 // modules for JWT support
 import cors from 'cors';
 
-// Step 2 for auth - define our auth objects
-let localStrategy = passportLocal.Strategy; // alias
+// for auth - define our auth objects
+// let localStrategy = passportLocal.Strategy; // alias
 
-// Step 3 for auth - import the user model
-import User from '../Models/user';
+//  for auth - import the user model
+// import User from '../Models/user';
 
 // import the router data
 import indexRouter from '../Routes/index'; // top-level routes
-import movieListRouter from '../Routes/movie-list'; // movie-list routes
-import authRouter from '../Routes/auth'; // authentication routes
+import contactListRouter from '../Routes/conatct-list'; // movie-list routes
+// import authRouter from '../Routes/auth'; // authentication routes
 
 const app = express();
 
 // Complete the DB Configuration
 import * as DBConfig from './db';
-mongoose.connect(DBConfig.RemoteURI);
+mongoose.connect(DBConfig.LocalURI);
+// mongoose.connect(DBConfig.RemoteURI);
 const db = mongoose.connection; // alias for the mongoose connection
 
 // Listen for Connections or Errors
@@ -58,30 +59,30 @@ app.use(express.static(path.join(__dirname, '../../node_modules')));
 
 app.use(cors()); // adds CORS (cross-origin resource sharing) to the config
 
-// Step 4 - for auth - setup express session
-app.use(session({
-  secret: DBConfig.Secret,
-  saveUninitialized: false,
-  resave: false
-}));
+//  for auth - setup express session
+// app.use(session({
+//   secret: DBConfig.Secret,
+//   saveUninitialized: false,
+//   resave: false
+// }));
 
-// Step 5 - setup Flash
-app.use(flash());
+//  setup Flash
+// app.use(flash());
 
-// Step 6 - initialize passport and session
-app.use(passport.initialize());
-app.use(passport.session());
+//  initialize passport and session
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-// Step 7 - implement the Auth Strategy
-passport.use(User.createStrategy());
+// implement the Auth Strategy
+// passport.use(User.createStrategy());
 
-// Step 8 - setup User serialization and deserialization (encoding and decoding)
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// // ` setup User serialization and deserialization (encoding and decoding)
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
 
 // use routes
 app.use('/', indexRouter);
-// app.use('/', movieListRouter);
+app.use('/', contactListRouter);
 // app.use('/', authRouter);
 
 // catch 404 and forward to error handler

@@ -1,18 +1,18 @@
 import express from 'express';
 
-import Movie from '../Models/movie';
+import Contact from '../Models/contact-details';
 
 import { UserDisplayName } from '../Util';
 
 export function DisplayContactList(req: express.Request, res: express.Response, next: express.NextFunction)
 {
-    Movie.find(function(err, moviesCollection)
+    Contact.find(function(err, contactsCollection)
     {
         if(err)
         {
             console.error(err);
             res.end(err);
         }
-        res.render('index', {title: 'Movie List', page: 'movie-list', movies: moviesCollection, displayName: UserDisplayName(req) });
+        res.render('index', {title: 'Contact List', page: 'contact-list', contacts: contactsCollection, displayName: UserDisplayName(req) });
     });
 }
