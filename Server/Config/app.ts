@@ -7,7 +7,7 @@ import logger from 'morgan';
 // import db package
 import mongoose from 'mongoose';
 
-// Step 1 for auth - import modules
+//  for auth - import modules
 import session from 'express-session';
 import passport from 'passport';
 import passportLocal from 'passport-local';
@@ -17,22 +17,22 @@ import flash from 'connect-flash';
 import cors from 'cors';
 
 // for auth - define our auth objects
-// let localStrategy = passportLocal.Strategy; // alias
+let localStrategy = passportLocal.Strategy; // alias
 
 //  for auth - import the user model
-// import User from '../Models/user';
+import User from '../Models/user';
 
 // import the router data
 import indexRouter from '../Routes/index'; // top-level routes
 import contactListRouter from '../Routes/conatct-list'; // movie-list routes
-// import authRouter from '../Routes/auth'; // authentication routes
+import authRouter from '../Routes/auth'; // authentication routes
 
 const app = express();
 
 // Complete the DB Configuration
 import * as DBConfig from './db';
-mongoose.connect(DBConfig.LocalURI);
-// mongoose.connect(DBConfig.RemoteURI);
+// mongoose.connect(DBConfig.LocalURI);
+mongoose.connect(DBConfig.RemoteURI);
 const db = mongoose.connection; // alias for the mongoose connection
 
 // Listen for Connections or Errors
@@ -60,30 +60,30 @@ app.use(express.static(path.join(__dirname, '../../node_modules')));
 app.use(cors()); // adds CORS (cross-origin resource sharing) to the config
 
 //  for auth - setup express session
-// app.use(session({
-//   secret: DBConfig.Secret,
-//   saveUninitialized: false,
-//   resave: false
-// }));
+app.use(session({
+  secret: DBConfig.Secret,
+  saveUninitialized: false,
+  resave: false
+}));
 
 //  setup Flash
-// app.use(flash());
+app.use(flash());
 
 //  initialize passport and session
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // implement the Auth Strategy
-// passport.use(User.createStrategy());
+passport.use(User.createStrategy());
 
-// // ` setup User serialization and deserialization (encoding and decoding)
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
+//  setup User serialization and deserialization (encoding and decoding)
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // use routes
 app.use('/', indexRouter);
 app.use('/', contactListRouter);
-// app.use('/', authRouter);
+app.use('/', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) 

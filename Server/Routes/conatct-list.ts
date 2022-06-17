@@ -5,6 +5,6 @@ import { AuthGuard } from '../Util';
 
 import { DisplayContactList } from '../Controllers/conatct-list';
 
-router.get('/contact-list', DisplayContactList);
+router.get('/contact-list',AuthGuard, DisplayContactList);
 
 export default router;
